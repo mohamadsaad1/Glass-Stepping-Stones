@@ -28,7 +28,12 @@ h1{
   background-color: red;
 }
 
-
+.faulty{
+  background-color: purple;
+}
+.safe{
+  background-color: green;
+}
 .player {
   background-color: black;
 }
