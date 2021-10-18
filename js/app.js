@@ -1,6 +1,6 @@
-// document.body.style.backgroundImage = "url('card.png')";
-// document.body.style.backgroundSize= 'cover';
-// document.body.style.backgroundRepeat= 'no-repeat';
+document.body.style.backgroundImage = "url('card.png')";
+document.body.style.backgroundSize= 'cover';
+document.body.style.backgroundRepeat= 'no-repeat';
 /*----------------- Constants -----------------*/
 
 /*------------- Variables (state) -------------*/
