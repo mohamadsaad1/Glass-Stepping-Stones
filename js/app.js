@@ -22,7 +22,7 @@ console.log(tiles)
 const squares = document.querySelectorAll('.board div')
 const startBtn = document.querySelector('#button')
 const timeLeft = document.querySelector('#time-left')
-const statusElEl = document.querySelector('#statusEl')
+const statusElElEl = document.querySelector('#statusElEl')
 const width = 10
 const turnHtml = document.querySelector('#turn')
 const moveUpBtn = document.querySelector('#moveUp')
@@ -76,26 +76,48 @@ startBtn.addEventListener('click', start)
       timer = setInterval(play, 1000)
       for (let i = 0; i < 3; i++) {
       squares[players[i][0]].classList.add('player'+(i+1).toString())
-      turn_html.innerText="player's "+(turn+1).toString()+"turn to play"
-      show_buttons()
+      turnHtml.innerText="player's "+(turn+1).toString()+"turn to play"
+      showButtons()
       }
     }
   }
-  function check_lose(){
-    if (postion>=1 && postion<=8){
-        if (tiles[(postion%10)-1]==0){
-            statusElEl.innerText="you lose"
-            clearInterval(timer);
-            document.removeEventListener('keyup', render)
-        }
+  function checkLose(){
+    for(let i = 0; i < 3; i++) {
+      if (players[i][1]==true){
+          return
+      }
     }
-    else if(postion>=21 && postion<=28){
-        if (tiles[(postion%10)-1]==1){
-            statusElEl.innerText="you lose"
-            clearInterval(timer);
-            document.removeEventListener('keyup', render)
-        }
+    statusEl.innerText="you lose"
+    clearInterval(timer);
+    hideButtons()
+}
+function checkWin(){
+  win = true
+    for(let i = 0; i < 3; i++) {
+      if (players[i][2]==false && players[i][1]==true){
+          win = true
+      }
     }
-  }
-  
+    if (win){
+      statusEl.innerText="you win"
+      clearInterval(timer);
+      hideButtons()
+    }
 
+}
+function checkDie(){
+  if (players[turn][0]>=1 && players[turn][0]<=8){
+      if (tiles[(players[turn][0]%10)-1]==0){
+          statusEl.innerText="player "+(turn+1).toString()+" lose"
+          players[turn][1]=false
+          checkLose()
+      }
+  }
+  else if(players[turn][0]>=21 && players[turn][0]<=28){
+      if (tiles[(players[turn][0]%10)-1]==1){
+          statusEl.innerText="player "+(turn+1).toString()+" lose"
+          players[turn][1]=false
+          checkLose()
+      }
+  }
+}
