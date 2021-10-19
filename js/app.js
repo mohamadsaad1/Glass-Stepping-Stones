@@ -42,7 +42,7 @@ startBtn.addEventListener('click', start)
         break
     }
     squares[postion].classList.add('player')
-  
+    check_lose()
   }
 
 
@@ -64,4 +64,15 @@ startBtn.addEventListener('click', start)
       document.addEventListener('keyup', render)
     }
   }
+  function check_lose(){
+    if (postion>=1 && postion<=8){
+        if (tiles[(postion%10)-1]==0){
+            statusEl.innerText="you lose"
+            clearInterval(timer);
+            document.removeEventListener('keyup', render)
+        }
+    }
+
+  }
+  
 
