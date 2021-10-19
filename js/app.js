@@ -5,6 +5,7 @@ document.body.style.backgroundRepeat= 'no-repeat';
 
 /*------------- Variables (state) -------------*/
 let timer=0
+let turn=0
 let postion = 10
 let currentTime = 180
 let tiles = []
@@ -30,41 +31,18 @@ const moveDownBtn = document.querySelector('#moveDown')
 const holdBtn = document.querySelector('#hold')
 const pushBtn = document.querySelector('#push')
 /*-------------- Event Listeners --------------*/
-document.addEventListener('', render)
-moveUp.addEventListener('click', moveUP)
+moveUpBtn.addEventListener('click', moveUp)
 moveDownBtn.addEventListener('click', moveDown)
 pushBtn.addEventListener('click',push)
 holdBtn.addEventListener('click', hold)
 startBtn.addEventListener('click', start)
 /*----------------- Functions -----------------*/
 
-  // function render(e) {
-  //   squares[postion].classList.remove('player')
-  //   switch(e.keyCode) {
-  //     case 37:
-  //       if(postion % width !== 0) postion -= 1
-  //       break
-  //     case 38:
-  //       if(postion - width >= 0) postion -= width
-  //       break
-  //     case 39:
-  //       if(postion % width < width - 1) postion += 1
-  //       break
-  //     case 40:
-  //       if (postion + width < width * width) postion += width
-  //       break
-  //   }
-  //   squares[postion].classList.add('player')
-  //   check_lose()
-  // }
-
-
   function play() {
     currentTime--
     timeLeft.innerText = currentTime
     if (currentTime==0){
         clearInterval(timer);
-        document.removeEventListener('keyup', render)
         statusEl.innerText="you lose"
     }
   }
@@ -76,7 +54,7 @@ startBtn.addEventListener('click', start)
       timer = setInterval(play, 1000)
       for (let i = 0; i < 3; i++) {
       squares[players[i][0]].classList.add('player'+(i+1).toString())
-      turnHtml.innerText="player's "+(turn+1).toString()+"turn to play"
+      turnHtml.innerText="player " + (turn+1).toString() + "'s turn to play"
       showButtons()
       }
     }
@@ -91,7 +69,7 @@ startBtn.addEventListener('click', start)
     clearInterval(timer);
     hideButtons()
 }
-function checkWin(){
+  function checkWin(){
   win = true
     for(let i = 0; i < 3; i++) {
       if (players[i][2]==false && players[i][1]==true){
@@ -166,5 +144,151 @@ function turns(){
       else{
           turn=-1
       }
-      turnHtml.innerText="player "+(turn+1).toString()+"'s turn to play"
+      turnHtml.innerText="player "+(turn+1).toString()+ "'s turn to play"
   }
+
+  function checkHold(turn){
+    console.log("this is the turn "+turn.toString())
+    console.log(players[turn][0]%10)
+    console.log(((players[turn-1][0]%10)-1))
+    console.log(players[turn-1][0])
+    if (players[turn][0]%10 == ((players[turn-1][0]%10)-1)){
+      return true
+    }
+    else{
+      return false
+    }
+  }
+  function checkPass(){
+    if (players[turn][0]%10==9){
+        squares[players[turn][0]].classList.remove('player'+(turn+1).toString())
+        statusEl.innerText="player "+(turn+1).toString()+" win"
+        players[turn][2]=true
+        checkWin()
+    }
+  }
+  
+  function hideButtons(){
+      moveUpBtn.removeAttribute = 'hidden'
+      moveDownBtn.style.visibility = 'hidden'
+      holdBtn.style.visibility = 'hidden'
+      pushBtn.style.visibility = 'hidden'
+    }
+  
+  function showButtons(){
+  
+          if (turn==0){
+          moveUpBtn.style.visibility = 'visible'
+          moveDownBtn.style.visibility = 'visible'
+          holdBtn.style.visibility = 'visible'
+          }
+          else if (turn == 1 && players[0][1]==true){
+          console.log(checkHold(turn))
+              if (checkHold(turn)==true){
+                  holdBtn.style.visibility = 'visible'
+                  pushBtn.style.visibility = 'visible'
+              }
+              else{
+                  moveUpBtn.style.visibility = 'visible'
+                  moveDownBtn.style.visibility = 'visible'
+                  holdBtn.style.visibility = 'visible'
+              }
+          }
+          else if (turn == 1 && players[0][1]==false){
+              moveUpBtn.style.visibility = 'visible'
+              moveDownBtn.style.visibility = 'visible'
+              holdBtn.style.visibility = 'visible'
+          }
+  
+          else if (turn == 2 && players[1][1]==true && players[0][1]==true){
+              if (checkHold(turn) && checkHold(turn-1))
+              {
+                  holdBtn.style.visibility = 'visible'
+              }
+              else if (checkHold(turn))
+              {
+                  holdBtn.style.visibility = 'visible'
+                  pushBtn.style.visibility = 'visible'
+              }
+              else
+              {
+                  moveUpBtn.style.visibility = 'visible'
+                  moveDownBtn.style.visibility = 'visible'
+                  holdBtn.style.visibility = 'visible'
+              }
+          }
+          else if (turn == 2 && players[1][1]==true && players[0][1]==false){
+          if (checkHold(turn)==true){
+              holdBtn.style.visibility = 'visible'
+              pushBtn.style.visibility = 'visible'
+          }
+          else{
+              moveUpBtn.style.visibility = 'visible'
+              moveDownBtn.style.visibility = 'visible'
+              holdBtn.style.visibility = 'visible'
+          }
+          }
+  
+          else if (turn == 2 && players[1][1]==false){
+              moveUpBtn.style.visibility = 'visible'
+              moveDownBtn.style.visibility = 'visible'
+              holdBtn.style.visibility = 'visible'
+          }
+    }
+  
+    function moveUp()
+    {
+      squares[players[turn][0]].classList.remove('player'+(turn+1).toString())
+      if (players[turn][0]>=1 && players[turn][0]<=8){
+              players[turn][0]=players[turn][0]+1;
+          }
+      else if(players[turn][0]>=21 && players[turn][0]<=28){
+              players[turn][0]=players[turn][0] - 19;
+          }
+      else if(players[turn][0]%10 == 0)
+      {
+          players[turn][0]=1
+      }
+      squares[players[turn][0]].classList.add('player'+(turn+1).toString())
+      hideButtons();
+      checkDie();
+      checkPass();
+      turns();
+      showButtons()
+    }
+      
+    
+    function moveDown()
+    {
+      squares[players[turn][0]].classList.remove('player'+(turn+1).toString())
+      if (players[turn][0]>=1 && players[turn][0]<=8){
+              players[turn][0]=players[turn][0] + 21;
+          }
+      else if(players[turn][0]>=21 && players[turn][0]<=28){
+              players[turn][0]=players[turn][0] + 1;
+          }
+      else if(players[turn][0]%10 == 0)
+      {
+          players[turn][0] = 21
+      }
+      squares[players[turn][0]].classList.add('player'+(turn+1).toString())
+      hideButtons()
+      checkDie()
+      checkPass()
+      turns()
+      showButtons()
+    }
+      function hold()
+    {
+      hideButtons()
+      turns()
+      showButtons()
+    }
+    function push()
+    {
+  
+    }
+  
+  
+  
+  
