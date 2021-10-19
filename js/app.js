@@ -13,7 +13,7 @@ for (let i = 0; i < 8; i++) {
 }
 players = []
 for (let i = 0; i < 3; i++) {
-   players.push([postion=0+i*10,true])
+  players.push([postion=0+i*10,true])
 }
 
 console.log(tiles)
