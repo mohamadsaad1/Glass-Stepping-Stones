@@ -63,17 +63,7 @@ startBtn.addEventListener('click', start)
         document.removeEventListener('keyup', render)
     }
   }
-
-  function turns(){
-    for(let i = 0; i < 3; i++) {
-        if (players[(turn+i+1)%3][1]==true){
-            turn=(turn+i+1)%3;
-            break;
-        }
-    }
-    turn_html.innerText="player's "+(turn+1).toString()+"turn to play"
-    show_buttons()
-}
+  
   function start() {
     if(timer) {
     }
