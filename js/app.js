@@ -25,12 +25,16 @@ const timeLeft = document.querySelector('#time-left')
 const statusEl = document.querySelector('#status')
 const width = 10
 const turnHtml = document.querySelector('#turn')
-const moveUp = document.querySelector('#move_up')
-const moveDown = document.querySelector('#move_down')
-const hold = document.querySelector('#hold')
-const push = document.querySelector('#push')
+const moveUpBtn = document.querySelector('#move_up')
+const moveDownBtn = document.querySelector('#move_down')
+const holdBtn = document.querySelector('#hold')
+const pushBtn = document.querySelector('#push')
 /*-------------- Event Listeners --------------*/
 document.addEventListener('', render)
+moveUp.addEventListener('click', moveUP)
+moveDownBtn.addEventListener('click', moveDown)
+pushBtn.addEventListener('click',push)
+holdBtn.addEventListener('click', hold)
 startBtn.addEventListener('click', start)
 /*----------------- Functions -----------------*/
 
@@ -63,7 +67,7 @@ startBtn.addEventListener('click', start)
         document.removeEventListener('keyup', render)
     }
   }
-  
+
   function start() {
     if(timer) {
     }
