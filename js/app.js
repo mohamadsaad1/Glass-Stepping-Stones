@@ -22,11 +22,11 @@ console.log(tiles)
 const squares = document.querySelectorAll('.board div')
 const startBtn = document.querySelector('#button')
 const timeLeft = document.querySelector('#time-left')
-const statusEl = document.querySelector('#status')
+const statusElEl = document.querySelector('#statusEl')
 const width = 10
 const turnHtml = document.querySelector('#turn')
-const moveUpBtn = document.querySelector('#move_up')
-const moveDownBtn = document.querySelector('#move_down')
+const moveUpBtn = document.querySelector('#moveUp')
+const moveDownBtn = document.querySelector('#moveDown')
 const holdBtn = document.querySelector('#hold')
 const pushBtn = document.querySelector('#push')
 /*-------------- Event Listeners --------------*/
@@ -38,25 +38,25 @@ holdBtn.addEventListener('click', hold)
 startBtn.addEventListener('click', start)
 /*----------------- Functions -----------------*/
 
-  function render(e) {
-    squares[postion].classList.remove('player')
-    switch(e.keyCode) {
-      case 37:
-        if(postion % width !== 0) postion -= 1
-        break
-      case 38:
-        if(postion - width >= 0) postion -= width
-        break
-      case 39:
-        if(postion % width < width - 1) postion += 1
-        break
-      case 40:
-        if (postion + width < width * width) postion += width
-        break
-    }
-    squares[postion].classList.add('player')
-    check_lose()
-  }
+  // function render(e) {
+  //   squares[postion].classList.remove('player')
+  //   switch(e.keyCode) {
+  //     case 37:
+  //       if(postion % width !== 0) postion -= 1
+  //       break
+  //     case 38:
+  //       if(postion - width >= 0) postion -= width
+  //       break
+  //     case 39:
+  //       if(postion % width < width - 1) postion += 1
+  //       break
+  //     case 40:
+  //       if (postion + width < width * width) postion += width
+  //       break
+  //   }
+  //   squares[postion].classList.add('player')
+  //   check_lose()
+  // }
 
 
   function play() {
@@ -65,6 +65,7 @@ startBtn.addEventListener('click', start)
     if (currentTime==0){
         clearInterval(timer);
         document.removeEventListener('keyup', render)
+        statusEl.innerText="you lose"
     }
   }
 
@@ -73,20 +74,24 @@ startBtn.addEventListener('click', start)
     }
     else {
       timer = setInterval(play, 1000)
-      document.addEventListener('keyup', render)
+      for (let i = 0; i < 3; i++) {
+      squares[players[i][0]].classList.add('player'+(i+1).toString())
+      turn_html.innerText="player's "+(turn+1).toString()+"turn to play"
+      show_buttons()
+      }
     }
   }
   function check_lose(){
     if (postion>=1 && postion<=8){
         if (tiles[(postion%10)-1]==0){
-            statusEl.innerText="you lose"
+            statusElEl.innerText="you lose"
             clearInterval(timer);
             document.removeEventListener('keyup', render)
         }
     }
     else if(postion>=21 && postion<=28){
         if (tiles[(postion%10)-1]==1){
-            statusEl.innerText="you lose"
+            statusElEl.innerText="you lose"
             clearInterval(timer);
             document.removeEventListener('keyup', render)
         }
