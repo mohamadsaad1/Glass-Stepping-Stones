@@ -36,6 +36,15 @@ h1{
 .player {
   background-color: black;
 }
+.player1 {
+  background-color: gray;
+}
+.player2 {
+  background-color: pink;
+}
+.player3 {
+  background-color: orange;
+}
 
 .slidein {
   animation-name: fadeInOut, moveLeft300px, bounce;
