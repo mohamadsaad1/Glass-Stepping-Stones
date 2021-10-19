@@ -4,20 +4,25 @@ document.body.style.backgroundRepeat= 'no-repeat';
 /*----------------- Constants -----------------*/
 
 /*------------- Variables (state) -------------*/
-let timer
+let timer=0
 let postion = 10
 let currentTime = 180
+let tiles = []
+for (let i = 0; i < 8; i++) {
+  tiles.push(Math.round(Math.random()))
+}
 
+console.log(tiles)
 /*--------- Cached Element References ---------*/
 
 const squares = document.querySelectorAll('.board div')
 const startBtn = document.querySelector('#button')
 const timeLeft = document.querySelector('#time-left')
-const status = document.querySelector('#status')
+const statusEl = document.querySelector('#status')
 const width = 10
 /*-------------- Event Listeners --------------*/
 document.addEventListener('', render)
-startBtn.addEventListener('click', move)
+startBtn.addEventListener('click', start)
 /*----------------- Functions -----------------*/
 
   function render(e) {
@@ -37,21 +42,26 @@ startBtn.addEventListener('click', move)
         break
     }
     squares[postion].classList.add('player')
+  
   }
 
 
   function play() {
     currentTime--
     timeLeft.innerText = currentTime
+    if (currentTime==0){
+        clearInterval(timer);
+        document.removeEventListener('keyup', render)
+    }
   }
 
 
-  function move() {
+  function start() {
     if(timer) {
-    } else {
+    }
+    else {
       timer = setInterval(play, 1000)
       document.addEventListener('keyup', render)
     }
   }
-
 

@@ -12,13 +12,12 @@
   border: 1px solid;
   height: 33%;
   width: 10%;
+  
 }
 h1{
   display: flex;
   justify-content: center;
-}
-#button{
-  display: flex;
+  animation:1.5s slidein;
 }
 .start {
   background-color: blue;
@@ -36,4 +35,30 @@ h1{
 }
 .player {
   background-color: black;
+}
+
+.slidein {
+  animation-name: fadeInOut, moveLeft300px, bounce;
+animation-duration: 3s;
+animation-iteration-count: 1;
+}
+
+
+@keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%;
+  }
+
+  75% {
+    font-size: 300%;
+    margin-left: 25%;
+    width: 150%;
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+  
 }
