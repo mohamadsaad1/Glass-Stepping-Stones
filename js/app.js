@@ -72,6 +72,13 @@ startBtn.addEventListener('click', start)
             document.removeEventListener('keyup', render)
         }
     }
+    else if(postion>=21 && postion<=28){
+        if (tiles[(postion%10)-1]==1){
+            statusEl.innerText="you lose"
+            clearInterval(timer);
+            document.removeEventListener('keyup', render)
+        }
+    }
 
   }
   
