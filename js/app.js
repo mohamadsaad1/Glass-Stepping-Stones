@@ -11,6 +11,10 @@ let tiles = []
 for (let i = 0; i < 8; i++) {
   tiles.push(Math.round(Math.random()))
 }
+players = []
+for (let i = 0; i < 3; i++) {
+  players.push([postion=0+i*10,true])
+}
 
 console.log(tiles)
 /*--------- Cached Element References ---------*/
@@ -20,6 +24,11 @@ const startBtn = document.querySelector('#button')
 const timeLeft = document.querySelector('#time-left')
 const statusEl = document.querySelector('#status')
 const width = 10
+const turnHtml = document.querySelector('#turn')
+const moveUp = document.querySelector('#move_up')
+const moveDown = document.querySelector('#move_down')
+const hold = document.querySelector('#hold')
+const push = document.querySelector('#push')
 /*-------------- Event Listeners --------------*/
 document.addEventListener('', render)
 startBtn.addEventListener('click', start)
@@ -79,7 +88,6 @@ startBtn.addEventListener('click', start)
             document.removeEventListener('keyup', render)
         }
     }
-
   }
   
 
