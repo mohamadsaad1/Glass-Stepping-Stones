@@ -121,3 +121,50 @@ function checkDie(){
       }
   }
 }
+
+function turns(){
+  console.log(turn)
+      if (turn==0 && players[0][0]%10==0){
+          turn=0
+      }
+      else if (turn==0 && players[1][1]==true){
+          turn=1
+      }
+      else if (turn==0 && players[1][1]==false && players[2][1]==true){
+          turn=2
+      }
+      else if (turn==1 && players[turn][0]%10==0 && players[0][1]==true && players[0][2]==false){
+          turn=0
+      }
+      else if (turn==1 && players[turn][0]%10==0 && players[0][1]==true && players[0][2]==true){
+          turn=1
+      }
+      else if (turn==1 && players[turn][0]%10==0 && players[0][1]==false){
+          turn=1
+      }
+      else if (turn==1 && players[2][1]==true){
+          turn=2
+      }
+      else if (turn==2 && players[0][1]==true && players[0][2]==false){
+          turn=0
+      }
+      else if (turn==2 && players[0][1]==true && players[0][2]==true && players[1][2]==false && players[1][1]==true){
+          turn=1
+      }
+      else if (turn==2 && players[0][1]==true && players[0][2]==true && players[1][2]==true && players[1][1]==true){
+          turn=2
+      }
+      else if (turn==2 && players[0][1]==true && players[0][2]==true && players[1][1]==false){
+          turn=2
+      }
+      else if (turn==2 && players[0][1]==false && players[1][1]==true && players[1][2]==false){
+          turn=1
+      }
+      else if (turn==2 && players[0][1]==false && players[1][1]==true && players[1][2]==true){
+          turn=2
+      }
+      else{
+          turn=-1
+      }
+      turnHtml.innerText="player "+(turn+1).toString()+"'s turn to play"
+  }
