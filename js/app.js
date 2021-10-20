@@ -158,15 +158,15 @@ function turns(){
         return false
     }
 }
-function check_pass(){
-  win_bool=false
+function checkPass(){
+  winBool=false
     if (players[turn][0]%10==9){
         squares[players[turn][0]].classList.remove('player'+(turn+1).toString())
-        status.innerText="player "+(turn+1).toString()+" win"
+        statusEl.innerText="player "+(turn+1).toString()+" win"
         players[turn][2]=true
-        win_bool = check_win()
+        winBool = checkWin()
     }
-    return win_bool
+    return winBool
   }
   
   function hideButtons(){
@@ -284,7 +284,8 @@ function check_pass(){
     }
 
   }
-    function hold()
+    
+function hold()
   {
     hideButtons()
     turns()
