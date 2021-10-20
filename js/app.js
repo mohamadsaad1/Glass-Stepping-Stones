@@ -14,7 +14,7 @@ for (let i = 0; i < 8; i++) {
 }
 players = []
 for (let i = 0; i < 3; i++) {
-  players.push([postion=0+i*10,true])
+  players.push([postion=0+i*10,true,false])
 }
 
 console.log(tiles)
@@ -23,7 +23,7 @@ console.log(tiles)
 const squares = document.querySelectorAll('.board div')
 const startBtn = document.querySelector('#button')
 const timeLeft = document.querySelector('#time-left')
-const statusEl = document.querySelector('#statusElEl')
+const statusEl = document.querySelector('#status')
 const width = 10
 const turnHtml = document.querySelector('#turn')
 const moveUpBtn = document.querySelector('#moveUp')
@@ -66,12 +66,13 @@ function start() {
 function checkLose(){
   for(let i = 0; i < 3; i++) {
     if (players[i][1]==true){
-        return
+        return false
       }
     }
   statusEl.innerText="you lose"
   clearInterval(timer);
   hideButtons()
+  return true
 }
 
 function checkWin(){
@@ -106,6 +107,7 @@ function checkDie(){
       }
   }
   return loseBool
+
 }
 
 function turns(){
@@ -163,25 +165,25 @@ function turns(){
   else{
       turn=-1
   }
-  turn_html.innerText="player's "+(turn+1).toString()+"turn to play"
+  turnHtml.innerText="player's "+(turn+1).toString()+"turn to play";
 }
 
 function checkHold(turn){
   if (players[turn][0]%10 == ((players[turn-1][0]%10)-1)){
-      return true
+      return true;
   }
   else{
-      return false
+      return false;
   }
 }
 
 function checkPass(){
   winBool=false
     if (players[turn][0]%10==9){
-      squares[players[turn][0]].classList.remove('player'+(turn+1).toString())
-      statusEl.innerText="player "+(turn+1).toString()+" win"
-      players[turn][2]=true
-      winBool = checkWin()
+      squares[players[turn][0]].classList.remove('player'+(turn+1).toString());
+      statusEl.innerText="player "+(turn+1).toString()+" win";
+      players[turn][2]=true;
+      winBool = checkWin();
     }
   return winBool
 }
@@ -251,38 +253,43 @@ function moveUp(){
   squares[players[turn][0]].classList.add('player'+(turn+1).toString())
   hideButtons();
   lose=checkDie();
-  win = checkDie()
-  turns()
-  console.log(lose)
-  console.log(!win && !lose)
+  win = checkPass();
+  turns();
+  console.log(lose);
+  console.log(!win && !lose);
   if (!win && !lose){
-    showButtons()
+    showButtons();
   }
 }
 
-function moveDown(){
-  squares[players[turn][0]].classList.remove('player'+(turn+1).toString())
+function moveDown()
+  {
+    squares[players[turn][0]].classList.remove('player'+(turn+1).toString())
     if (players[turn][0]>=1 && players[turn][0]<=8){
-      players[turn][0]=players[turn][0] + 21;
-  } else if(players[turn][0]>=21 && players[turn][0]<=28){
-      players[turn][0]=players[turn][0] + 1;
-  } else if(players[turn][0]%10 == 0){
-      players[turn][0] = 21
+            players[turn][0]=players[turn][0] + 21;
+        }
+    else if(players[turn][0]>=21 && players[turn][0]<=28){
+            players[turn][0]=players[turn][0] + 1;
+        }
+    else if(players[turn][0]%10 == 0)
+    {
+        players[turn][0] = 21
+    }
+    squares[players[turn][0]].classList.add('player'+(turn+1).toString())
+    hideButtons()
+    lose = checkDie()
+    win = checkPass()
+    turns()
+    if (!win && !lose){
+        showButtons()
+    }
+
   }
-  squares[players[turn][0]].classList.add('player'+(turn+1).toString())
-  hideButtons()
-  lose=checkDie()
-  win = checkDie()
-  turns()
-if (!win && !lose){
-    showButtons()
-  }
-}
 
 function hold(){
-  hideButtons()
-  turns()
-  showButtons()
+  hideButtons();
+  turns();
+  showButtons();
 }
 
 function push(){
@@ -294,13 +301,13 @@ function push(){
     squares[players[1][0]].classList.add('player'+(2).toString())
     squares[players[0][0]].classList.add('player'+(1).toString())
     turn=turn-1
-    hideButtons()
-    lose=checkDie()
-    win = checkDie()
-    turn=turn+1
-    turns()
+    hideButtons();
+    lose=checkDie();
+    win = checkPass();
+    turn=turn+1;
+    turns();
   if (!win && !lose){
-      showButtons()
+      showButtons();
   } else {
       squares[players[2][0]].classList.remove('player'+(3).toString())
       squares[players[1][0]].classList.remove('player'+(2).toString())
@@ -309,13 +316,13 @@ function push(){
       squares[players[2][0]].classList.add('player'+(3).toString())
       squares[players[1][0]].classList.add('player'+(2).toString())
       turn=turn-1
-      hideButtons()
-      lose=checkDie()
-      win = checkDie()
-      turn=turn+1
-      turns()
+      hideButtons();
+      lose=checkDie();
+      win = checkPass();
+      turn=turn+1;
+      turns();
       if (!win && !lose){
-          showButtons()
+          showButtons();
       }
     }
   }
