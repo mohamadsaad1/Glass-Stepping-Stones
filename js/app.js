@@ -77,11 +77,11 @@ function checkLose(){
 
 function checkWin(){
   win = false
-    for(let i = 0; i < 3; i++) {
-      if (players[i][2]==false && players[i][1]==true){
-          win = true
+  for(let i = 0; i < 3; i++) {
+    if (players[i][2]==false && players[i][1]==true){
+        win = true
       }
-    }
+    } 
     if (win){
       statusEl.innerText="you win"
       clearInterval(timer);
@@ -94,9 +94,9 @@ function checkDie(){
   loseBool = false
   if (players[turn][0]>=1 && players[turn][0]<=8){
       if (tiles[(players[turn][0]%10)-1]==0){
-          statusEl.innerText="player "+(turn+1).toString()+" lose"
-          players[turn][1]=false
-          loseBool=checkLose()
+        statusEl.innerText="player "+(turn+1).toString()+" lose"
+        players[turn][1]=false
+        loseBool=checkLose()
       }
   }
   else if(players[turn][0]>=21 && players[turn][0]<=28){
@@ -113,17 +113,13 @@ function checkDie(){
 function turns(){
   if (turn==0 && players[0][0]%10==0){
       turn=0
-  }
-  else if (turn==0 && players[1][1]==true){
+  } else if (turn==0 && players[1][1]==true){
       turn=1
-  }
-  else if (turn==0 && players[1][1]==false && players[2][1]==false){
+  } else if (turn==0 && players[1][1]==false && players[2][1]==false){
       turn=0
-  }
-  else if (turn==0 && players[1][1]==false && players[2][1]==true){
+  } else if (turn==0 && players[1][1]==false && players[2][1]==true){
       turn=2
-  }
-  else if (turn==1 && players[turn][0]%10==0 && players[0][1]==true && players[0][2]==false){
+  } else if (turn==1 && players[turn][0]%10==0 && players[0][1]==true && players[0][2]==false){
       turn=0
   }
   else if (turn==1 && players[turn][0]%10==0 && players[0][1]==true && players[0][2]==true){
@@ -308,7 +304,8 @@ function push(){
     turns();
   if (!win && !lose){
       showButtons();
-  } else {
+  } 
+}else {
       squares[players[2][0]].classList.remove('player'+(3).toString())
       squares[players[1][0]].classList.remove('player'+(2).toString())
       players[2][0]=players[1][0]
@@ -326,4 +323,4 @@ function push(){
       }
     }
   }
-}
+
