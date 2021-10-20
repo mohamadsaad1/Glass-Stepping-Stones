@@ -23,7 +23,7 @@ console.log(tiles)
 const squares = document.querySelectorAll('.board div')
 const startBtn = document.querySelector('#button')
 const timeLeft = document.querySelector('#time-left')
-const statusElElEl = document.querySelector('#statusElEl')
+const statusEl = document.querySelector('#statusElEl')
 const width = 10
 const turnHtml = document.querySelector('#turn')
 const moveUpBtn = document.querySelector('#moveUp')
@@ -69,8 +69,8 @@ startBtn.addEventListener('click', start)
     clearInterval(timer);
     hideButtons()
 }
-  function checkWin(){
-  win = true
+function checkWin(){
+  win = false
     for(let i = 0; i < 3; i++) {
       if (players[i][2]==false && players[i][1]==true){
           win = true
@@ -81,8 +81,9 @@ startBtn.addEventListener('click', start)
       clearInterval(timer);
       hideButtons()
     }
-
+  return win
 }
+
 function checkDie(){
   loseBool = false
   if (players[turn][0]>=1 && players[turn][0]<=8){
