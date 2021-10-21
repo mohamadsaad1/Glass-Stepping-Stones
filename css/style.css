@@ -3,8 +3,7 @@ body{
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 70vh;
-  font-size: 40px;
+  min-height: inherit;
   --light-dark-btn-bg: #1d1e2b;
   --light-dark-btn-content: "Dark Mode";
 }
@@ -25,6 +24,7 @@ body.dark {
     color: white;
     background-color: var(--light-dark-btn-bg);
     background-image: var(--light-dark-btn-bg);
+    box-sizing: inherit;
   }
   
   #light-dark-button::after {
@@ -33,92 +33,78 @@ body.dark {
     content: var(--light-dark-btn-content);
   }
 .board {
-  
+  justify-content: center;
   display: flex;
   flex-wrap: wrap;
-  height:300px;
   width: 90%;
-  margin: 10% auto;
+  margin-bottom: 30px;
 
 }
-/* .playerspace{
-  z-index: 10;
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  border: 1px solid red;
-} */
+.init{
+  flex-wrap: inherit;
+  display: inherit;
+}
 .board div {
   
-  height: 33%;
-  width: 9.53%;
+  height: 31%;
+  width: 9%;
   margin: 2px;
 }
+
 #title{
-  background-color: black;
+  background-color: rgb(187, 121, 121);
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 10px;
-color: aqua;
-
+  color: aqua;
 }
 
-h2{
+.init h2{
   color: rgb(165, 3, 3);
+  -webkit-box-shadow: 0px 0px 20px 0px #e9e8eb; 
+box-shadow: 0px 0px 20px 0px #0c6860;
 }
-h3{
+
+.init h3{
   color: red;
+  
 }
+
 .board img {
   width: 100%;
   height: 100%;
   -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.65); 
-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.65);
-
-
+box-shadow: 0px 0px 10px 0px rgba(3, 0, 0, 0.65);
 }
 
 .player1 {
-  background-color: rgb(28, 207, 11);
-  z-index: 10;
-}
-.player2 {
   background:url("../glass.png");
   background-size: 100% 100%;
-  background-position-x: center;
-  background-position-y: center;
   content: url("cyan.png");
   -webkit-box-shadow: 0px 0px 20px 0px #000000; 
 box-shadow: 0px 0px 20px 0px #000000;
 }
+
+.player2 {
+  background:url("../glass.png");
+  background-size: 100% 100%;
+  content: url("pink imposter.png");
+  -webkit-box-shadow: 0px 0px 20px 0px #000000; 
+box-shadow: 0px 0px 20px 0px #000000;
+}
+
 .player3 {
-  background-color: rgb(251, 255, 0);
+  background:url("../glass.png");
+  background-size: 100% 100%;
+
+  content: url("RED IMPOSTER.png");
+  -webkit-box-shadow: 0px 0px 20px 0px #000000; 
+box-shadow: 0px 0px 20px 0px #000000;
 }
 
-/* .slidein {
-  animation-name: fadeInOut, moveLeft300px, bounce;
-animation-duration: 3s;
-animation-iteration-count: 1;
+.buttons button {
+ margin:30px;
+ justify-content: center;
 }
-
-
-@keyframes slidein {
-  from {
-    margin-left: 100%;
-    width: 300%;
-  }
-
-  75% {
-    font-size: 300%;
-    margin-left: 25%;
-    width: 150%;
-  }
-
-  to {
-    margin-left: 0%;
-    width: 100%;
-  }
-  
-} */
