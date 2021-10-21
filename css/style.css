@@ -1,3 +1,11 @@
+body{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  font-size: 40px;
+}
 .board {
   border: 1px solid;
   display: flex;
@@ -11,24 +19,29 @@
   border: 1px solid;
   height: 33%;
   width: 10%;
-  
 }
-h1{
-  display: flex;
-  justify-content: center;
-  animation:1.5s slidein;
+#title{
+color: aqua;
+
 }
+h2{
+  color: rgb(165, 3, 3);
+}
+.board img {
+  width: 100%;
+  height: 100%;
+}
+
 .start {
   background-color: blue;
 }
-
 
 .end {
   background-color: red;
 }
 
 .player {
-  background-color: black;
+  background-color: rgb(32, 31, 31);
 }
 .player1 {
   background-color: gray;
@@ -40,7 +53,7 @@ h1{
   background-color: orange;
 }
 
-.slidein {
+/* .slidein {
   animation-name: fadeInOut, moveLeft300px, bounce;
 animation-duration: 3s;
 animation-iteration-count: 1;
@@ -64,4 +77,4 @@ animation-iteration-count: 1;
     width: 100%;
   }
   
-}
+} */

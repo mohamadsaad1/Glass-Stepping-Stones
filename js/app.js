@@ -1,6 +1,8 @@
-document.body.style.backgroundImage = "url('card.png')";
-document.body.style.backgroundSize= 'cover';
-document.body.style.backgroundRepeat= 'no-repeat';
+// document.body.style.backgroundImage = "url('card.png')";
+// document.body.style.backgroundSize= 'cover';
+// document.body.style.backgroundRepeat= 'no-repeat';
+document.body.style.backgroundColor= 'rgb(32, 31, 31)';
+
 /*----------------- Constants -----------------*/
 
 /*------------- Variables (state) -------------*/
@@ -96,6 +98,7 @@ function checkDie(){
       if (tiles[(players[turn][0]%10)-1]==0){
         statusEl.innerText="player "+(turn+1).toString()+" lost"
         players[turn][1]=false
+
         loseBool=checkLose()
       }
   }
@@ -285,7 +288,7 @@ function push(){
     if (!win && !lose){
     showButtons();
     } 
-  } else {
+  }else {
       squares[players[2][0]].classList.remove('player'+(3).toString())
       squares[players[1][0]].classList.remove('player'+(2).toString())
       players[2][0]=players[1][0]
@@ -303,4 +306,3 @@ function push(){
       }
   }
 }
-
