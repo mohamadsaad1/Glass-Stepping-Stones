@@ -1,6 +1,3 @@
-// document.body.style.backgroundImage = "url('card.png')";
-// document.body.style.backgroundSize= 'cover';
-// document.body.style.backgroundRepeat= 'no-repeat';
 // document.body.style.backgroundColor= 'rgb(32, 31, 31)';
 
 /*----------------- Constants -----------------*/
@@ -32,6 +29,8 @@ const moveUpBtn = document.querySelector('#moveUp')
 const moveDownBtn = document.querySelector('#moveDown')
 const holdBtn = document.querySelector('#hold')
 const pushBtn = document.querySelector('#push')
+const lightDarkBtn = document.querySelector("#light-dark-button")
+const body = document.querySelector("body")
 
 /*-------------- Event Listeners --------------*/
 
@@ -40,6 +39,7 @@ moveDownBtn.addEventListener('click', moveDown)
 pushBtn.addEventListener('click',push)
 holdBtn.addEventListener('click', hold)
 startBtn.addEventListener('click', start)
+lightDarkBtn.addEventListener("click", toggleLightDark)
 
 /*----------------- Functions -----------------*/
 
@@ -305,3 +305,18 @@ function push(){
       }
   }
 }
+
+function toggleLightDark() {
+  body.className = body.className === "dark" ? "" : "dark"
+}
+
+function checkDarkPref() {
+  if (
+    window.matchMedia("(prefers-color-scheme:dark)").matches &&
+    body.className !== "dark"
+  ) {
+    toggleLightDark()
+  }
+}
+
+checkDarkPref()
