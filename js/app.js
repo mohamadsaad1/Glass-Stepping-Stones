@@ -1,12 +1,7 @@
-// document.body.style.backgroundColor= 'rgb(32, 31, 31)';
-
-/*----------------- Constants -----------------*/
-
-/*------------- Variables (state) -------------*/
 let timer=0
 let turn=0
 let postion = 10
-let currentTime = 180
+let currentTime = 45
 let tiles = []
 for (let i = 0; i < 8; i++) {
   tiles.push(Math.round(Math.random()))
@@ -15,6 +10,7 @@ players = []
 for (let i = 0; i < 3; i++) {
   players.push([postion=0+i*10,true,false])
 }
+// array of arrays, which resembels players position if still alive, or finished
 // second index(true)in player refers to alive status
 //third index(false) refers to passing last tile 
 console.log(tiles)
@@ -47,6 +43,7 @@ function start() {
   if(timer) {
   } else {
       timer = setInterval(play, 1000)
+      // initialize all players and shows buttons
       for (let i = 0; i < 3; i++) {
       squares[players[i][0]].classList.add('player'+(i+1).toString())
       turnHtml.innerText="player " + (turn+1).toString() + "'s turn to play"
@@ -110,6 +107,15 @@ function showButtons(){
   }
 }
 
+function checkHold(turn){
+  if (players[turn][0]%10 == ((players[turn-1][0]%10)-1)){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
 function hideButtons(){
   moveUpBtn.style.visibility = 'hidden'
   moveDownBtn.style.visibility = 'hidden'
@@ -128,12 +134,12 @@ function moveUp(){
   }
   squares[players[turn][0]].classList.add('player'+(turn+1).toString())
   hideButtons();
-  lose=checkDie();
-  win = checkPass();
+  loseBool=checkDie();
+  winBool = checkPass();
   turns();
-  console.log(lose);
-  console.log(!win && !lose);
-  if (!win && !lose){
+  console.log(loseBool);
+  console.log(!winBool && !loseBool);
+  if (!winBool && !loseBool){
     showButtons();
   }
 }
@@ -149,10 +155,10 @@ function moveDown(){
   }
   squares[players[turn][0]].classList.add('player'+(turn+1).toString())
   hideButtons()
-  lose = checkDie()
-  win = checkPass()
+  loseBool= checkDie()
+  winBool = checkPass()
   turns()
-  if (!win && !lose){
+  if (!winBool && !loseBool){
     showButtons()
   }
 }
@@ -162,7 +168,7 @@ function hold(){
   turns();
   showButtons();
 }
-
+// 
 function push(){
   if (turn==1){
     squares[players[1][0]].classList.remove('player'+(2).toString())
@@ -173,11 +179,11 @@ function push(){
     squares[players[0][0]].classList.add('player'+(1).toString())
     turn=turn-1
     hideButtons();
-    lose=checkDie();
-    win = checkPass();
+    loseBool=checkDie();
+    winBool= checkPass();
     turn=turn+1;
     turns();
-    if (!win && !lose){
+    if (!winBool && !loseBool){
     showButtons();
     } 
   }else {
@@ -189,11 +195,11 @@ function push(){
       squares[players[1][0]].classList.add('player'+(2).toString())
       turn=turn-1
       hideButtons();
-      lose=checkDie();
-      win = checkPass();
+      loseBool=checkDie();
+      winBool = checkPass();
       turn=turn+1;
       turns();
-      if (!win && !lose){
+      if (!winBool && !loseBool){
         showButtons();
       }
   }
@@ -205,7 +211,8 @@ function checkDie(){
     if (tiles[(players[turn][0]%10)-1]==0){
       statusEl.innerText="player "+(turn+1).toString()+" lost"
       players[turn][1]=false
-      
+      squares[players[turn][0]].classList.remove('player'+(turn+1).toString())
+      squares[players[turn][0]].classList.add('player'+(turn+1).toString() +"dead")
       loseBool=checkLose()
     }
   }
@@ -213,6 +220,8 @@ function checkDie(){
     if (tiles[(players[turn][0]%10)-1]==1){
       statusEl.innerText="player "+(turn+1).toString()+" lost"
       players[turn][1]=false
+      squares[players[turn][0]].classList.remove('player'+(turn+1).toString())
+      squares[players[turn][0]].classList.add('player'+(turn+1).toString() +"dead")
       loseBool=checkLose()
     }
   }
@@ -244,18 +253,18 @@ function checkPass(){
 }
 
 function checkWin(){
-  win = false
+  winBool = false
   for(let i = 0; i < 3; i++) {
     if (players[i][2]==false && players[i][1]==true){
-      win = true
+      winBool = true
     }
   } 
-  if (win){
+  if (winBool){
     statusEl.innerText="you win"
     clearInterval(timer);
     hideButtons()
   }
-  return win
+  return winBool
 }
 
 
@@ -301,14 +310,7 @@ function turns(){
   turnHtml.innerText="player "+(turn+1).toString()+"'s turn to play";
 }
 
-function checkHold(turn){
-  if (players[turn][0]%10 == ((players[turn-1][0]%10)-1)){
-    return true;
-  }
-  else{
-    return false;
-  }
-}
+
 
 
 

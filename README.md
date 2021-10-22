@@ -25,13 +25,6 @@ The rules are fairly simple :
  Light/Dark Mode (insert image)
 
 
-### Cool Game Animations
-
-Player will jump when the jump button is clicked! (insert images)
-
-Upon landing on a faulty glass, the player will fall breaking the glass and fade out of the screen (insert images)
-
-
 ### Tech Used 
 
 * HTML
