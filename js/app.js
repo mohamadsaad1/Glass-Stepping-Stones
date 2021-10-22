@@ -10,10 +10,6 @@ players = []
 for (let i = 0; i < 3; i++) {
   players.push([postion=0+i*10,true,false])
 }
-// array of arrays, which resembels players position if still alive, or finished
-// second index(true)in player refers to alive status
-//third index(false) refers to passing last tile 
-console.log(tiles)
 /*--------- Cached Element References ---------*/
 
 const squares = document.querySelectorAll('.board div')
@@ -43,7 +39,6 @@ function start() {
   if(timer) {
   } else {
       timer = setInterval(play, 1000)
-      // initialize all players and shows buttons
       for (let i = 0; i < 3; i++) {
       squares[players[i][0]].classList.add('player'+(i+1).toString())
       turnHtml.innerText="player " + (turn+1).toString() + "'s turn to play"
@@ -60,6 +55,47 @@ function play() {
       statusEl.innerText="you lose"
       hideButtons()
   }
+}
+
+function turns(){
+  if (turn==0 && players[0][0]%10==0){
+    turn=0
+  } else if (turn==0 && players[1][1]==true){
+    turn=1
+  } else if (turn==0 && players[1][1]==false && players[2][1]==false){
+    turn=0
+  } else if (turn==0 && players[1][1]==false && players[2][1]==true){
+    turn=2
+  } else if (turn==1 && players[turn][0]%10==0 && players[0][1]==true && players[0][2]==false){
+    turn=0
+  } else if (turn==1 && players[turn][0]%10==0 && players[0][1]==true && players[0][2]==true){
+    turn=1
+  } else if (turn==1 && players[0][1]==false && players[2][1]==false){
+    turn=1
+  } else if (turn==1 && players[turn][0]%10==0 && players[0][1]==false){
+    turn=1
+  } else if (turn==1 && players[2][1]==true){
+    turn=2
+  } else if (turn==1 && players[2][1]==false && players[0][1]==true){
+    turn=0
+  } else if (turn==2 && players[0][1]==true && players[0][2]==false){
+    turn=0
+  } else if (turn==2 && players[0][1]==true && players[0][2]==true && players[1][1]==true && players[1][2]==false){
+    turn=1
+  } else if (turn==2 && players[0][1]==true && players[0][2]==true && players[1][1]==true && players[1][2]==true){
+    turn=2
+  } else if (turn==2 && players[0][1]==true && players[0][2]==true && players[1][1]==false){
+    turn=2
+  } else if (turn==2 && players[0][1]==false && players[1][1]==true && players[1][2]==false){
+    turn=1
+  } else if (turn==2 && players[0][1]==false && players[1][1]==true && players[1][2]==true){
+    turn=2
+  } else if (turn==2 && players[0][1]==false && players[1][1]==false){
+    turn=2
+  } else {
+    turn=-1
+  }
+  turnHtml.innerText="player "+(turn+1).toString()+"'s turn to play";
 }
 
 function showButtons(){
@@ -137,8 +173,6 @@ function moveUp(){
   loseBool=checkDie();
   winBool = checkPass();
   turns();
-  console.log(loseBool);
-  console.log(!winBool && !loseBool);
   if (!winBool && !loseBool){
     showButtons();
   }
@@ -168,7 +202,7 @@ function hold(){
   turns();
   showButtons();
 }
-// 
+
 function push(){
   if (turn==1){
     squares[players[1][0]].classList.remove('player'+(2).toString())
@@ -227,7 +261,6 @@ function checkDie(){
   }
   return loseBool
 }
-// lose boolean is a boolean to state whether you lost or not the game, which you get it from the checklose function that you call it from the check die function
 
 function checkLose(){
   for(let i = 0; i < 3; i++) {
@@ -267,58 +300,6 @@ function checkWin(){
   return winBool
 }
 
-
-
-function turns(){
-  if (turn==0 && players[0][0]%10==0){
-    turn=0
-  } else if (turn==0 && players[1][1]==true){
-    turn=1
-  } else if (turn==0 && players[1][1]==false && players[2][1]==false){
-    turn=0
-  } else if (turn==0 && players[1][1]==false && players[2][1]==true){
-    turn=2
-  } else if (turn==1 && players[turn][0]%10==0 && players[0][1]==true && players[0][2]==false){
-    turn=0
-  } else if (turn==1 && players[turn][0]%10==0 && players[0][1]==true && players[0][2]==true){
-    turn=1
-  } else if (turn==1 && players[0][1]==false && players[2][1]==false){
-    turn=1
-  } else if (turn==1 && players[turn][0]%10==0 && players[0][1]==false){
-    turn=1
-  } else if (turn==1 && players[2][1]==true){
-    turn=2
-  } else if (turn==1 && players[2][1]==false && players[0][1]==true){
-    turn=0
-  } else if (turn==2 && players[0][1]==true && players[0][2]==false){
-    turn=0
-  } else if (turn==2 && players[0][1]==true && players[0][2]==true && players[1][1]==true && players[1][2]==false){
-    turn=1
-  } else if (turn==2 && players[0][1]==true && players[0][2]==true && players[1][1]==true && players[1][2]==true){
-    turn=2
-  } else if (turn==2 && players[0][1]==true && players[0][2]==true && players[1][1]==false){
-    turn=2
-  } else if (turn==2 && players[0][1]==false && players[1][1]==true && players[1][2]==false){
-    turn=1
-  } else if (turn==2 && players[0][1]==false && players[1][1]==true && players[1][2]==true){
-    turn=2
-  } else if (turn==2 && players[0][1]==false && players[1][1]==false){
-    turn=2
-  } else {
-    turn=-1
-  }
-  turnHtml.innerText="player "+(turn+1).toString()+"'s turn to play";
-}
-
-
-
-
-
-
-
-
-
-
 function toggleLightDark() {
   body.className = body.className === "dark" ? "" : "dark"
 }
@@ -331,5 +312,4 @@ function checkDarkPref() {
     toggleLightDark()
   }
 }
-
 checkDarkPref()
