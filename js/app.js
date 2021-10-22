@@ -1,7 +1,7 @@
 let timer=0
 let turn=0
 let postion = 10
-let currentTime = 45
+let currentTime = 60
 let tiles = []
 for (let i = 0; i < 8; i++) {
   tiles.push(Math.round(Math.random()))
@@ -10,7 +10,6 @@ players = []
 for (let i = 0; i < 3; i++) {
   players.push([postion=0+i*10,true,false])
 }
-console.log(tiles)
 /*--------- Cached Element References ---------*/
 
 const squares = document.querySelectorAll('.board div')
@@ -54,7 +53,7 @@ function play() {
   if (currentTime==0){
       clearInterval(timer);
       statusEl.innerText="you lose"
-      hideButtons()
+      hideButtons() 
   }
 }
 
@@ -289,7 +288,7 @@ function checkPass(){
 function checkWin(){
   winBool = false
   for(let i = 0; i < 3; i++) {
-    if (players[i][2]==true && players[i][1]==true){
+    if (players[i][2]==true){
       winBool = true
     }
   } 
