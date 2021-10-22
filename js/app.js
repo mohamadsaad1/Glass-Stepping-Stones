@@ -10,6 +10,7 @@ players = []
 for (let i = 0; i < 3; i++) {
   players.push([postion=0+i*10,true,false])
 }
+console.log(tiles)
 /*--------- Cached Element References ---------*/
 
 const squares = document.querySelectorAll('.board div')
