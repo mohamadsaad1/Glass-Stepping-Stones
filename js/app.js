@@ -289,7 +289,7 @@ function checkPass(){
 function checkWin(){
   winBool = false
   for(let i = 0; i < 3; i++) {
-    if (players[i][2]==false && players[i][1]==true){
+    if (players[i][2]==true && players[i][1]==true){
       winBool = true
     }
   } 
