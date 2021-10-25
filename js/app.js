@@ -1,7 +1,7 @@
 let timer=0
 let turn=0
 let postion = 10
-let currentTime = 60
+let currentTime = 40
 let tiles = []
 for (let i = 0; i < 8; i++) {
   tiles.push(Math.round(Math.random()))
@@ -10,6 +10,8 @@ players = []
 for (let i = 0; i < 3; i++) {
   players.push([postion=0+i*10,true,false])
 }
+
+
 /*--------- Cached Element References ---------*/
 
 const squares = document.querySelectorAll('.board div')
