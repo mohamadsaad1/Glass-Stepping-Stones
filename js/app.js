@@ -1,7 +1,7 @@
 let timer=0
 let turn=0
 let postion = 10
-let currentTime = 40
+let currentTime = 65
 let tiles = []
 for (let i = 0; i < 8; i++) {
   tiles.push(Math.round(Math.random()))
